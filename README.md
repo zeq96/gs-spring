@@ -4,7 +4,8 @@
 
 ### 认证相关
 
-```POST /auth/register
+```
+POST /auth/register
 功能: 用户注册
 
 提交参数
@@ -31,7 +32,8 @@ password : 密码, 长度6到16个任意字符
   }
 }
 ```
-```POST /auth/login
+```
+POST /auth/login
 功能: 用户登录
 
 提交参数
