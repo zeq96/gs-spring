@@ -59,10 +59,8 @@ class AuthControllerTest {
         // 第一次未登录, /auth 接口返回未登录状态
         mockMvc.perform(MockMvcRequestBuilders.get("/auth"))
                 .andExpect(status().isOk())
-                .andExpect(result -> {
-                    result.getResponse().setCharacterEncoding("UTF-8");
-                    Assertions.assertTrue(result.getResponse().getContentAsString().contains("用户没有登录"));
-                });
+                .andExpect(result ->
+                        Assertions.assertTrue(result.getResponse().getContentAsString().contains("用户没有登录")));
 
         // 模拟登录的用户名密码
         Map<String, String> usernameAndPassword = new HashMap<>();
