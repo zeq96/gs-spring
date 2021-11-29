@@ -1,9 +1,10 @@
 # gs-spring
 
-# 后端接口规范
+## 后端接口规范
 
-# 认证相关
-POST /auth/register
+### 认证相关
+
+`POST /auth/register
 功能: 用户注册
 
 提交参数
@@ -28,7 +29,7 @@ password : 密码, 长度6到16个任意字符
     "updatedAt": "2017-12-27T07:40:09.697Z",
     "createdAt": "2017-12-27T07:40:09.697Z"
   }
-}
+}`
 POST /auth/login
 功能: 用户登录
 
@@ -90,9 +91,9 @@ GET /auth/logout
 返回格式 {"status": "fail", "msg": "用户尚未登录"}
 成功
 返回格式 {"status": "ok", "msg": "注销成功"}
-博客相关
+### 博客相关
 GET /blog
-# 功能: 获取博客列表
+功能: 获取博客列表
 
 提交参数:
 
