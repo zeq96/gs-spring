@@ -1,22 +1,8 @@
 # gs-spring
 
-后端接口规范
-约定接口一般包括以下数据
+# 后端接口规范
 
-当前接口的路径是什么？ 如 /auth/register
-当前接口提交数据的类型是什么? 如
-GET 获取数据
-POST 提交或者创建
-PATCH 修改数据，部分修改
-DELETE 删除数据
-PUT 修改数据，整体替换原有数据
-参数类型/格式，比如是 json 格式，还是 application/x-www-form-urlencoded的数据
-参数字段，及限制条件
-返回成功的数据格式
-返回失败的数据格式
-后端接口线上地址根路径： //blog-server.hunger-valley.com
-
-认证相关
+# 认证相关
 POST /auth/register
 功能: 用户注册
 
@@ -106,7 +92,7 @@ GET /auth/logout
 返回格式 {"status": "ok", "msg": "注销成功"}
 博客相关
 GET /blog
-功能: 获取博客列表
+# 功能: 获取博客列表
 
 提交参数:
 
