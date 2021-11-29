@@ -60,7 +60,8 @@ password : 密码, 长度6到16个任意字符
   }
 }
 ```
-```GET /auth
+```
+GET /auth
 功能: 判断用户是否登录
 
 提交参数: 无
@@ -85,7 +86,8 @@ password : 密码, 长度6到16个任意字符
   "isLogin": false
 }
 ```
-```GET /auth/logout
+```
+GET /auth/logout
 功能: 注销登录
 
 提交参数: 无
@@ -98,7 +100,8 @@ password : 密码, 长度6到16个任意字符
 返回格式 {"status": "ok", "msg": "注销成功"}
 ```
 ### 博客相关
-```GET /blog
+```
+GET /blog
 功能: 获取博客列表
 
 提交参数:
@@ -137,7 +140,8 @@ atIndex: 是否展示在首页，传递 true则只得到显示到首页的博客
   ]
 }
 ```
-```GET /blog/:blogId
+```
+GET /blog/:blogId
 功能: 获取id 为 blogId 的博客详情， 如 /blog/1
 
 提交参数:
@@ -168,7 +172,8 @@ atIndex: 是否展示在首页，传递 true则只得到显示到首页的博客
     }
 }
 ```
-```POST /blog
+```
+POST /blog
 功能: 创建博客
 
 提交参数
@@ -202,7 +207,8 @@ description: 博客内容简要描述,可为空，如果为空则后台自动从
     }
 }
 ```
-```PATCH /blog/:blogId
+```
+PATCH /blog/:blogId
 功能: 修改博客 id 为:blogId 的博客
 
 范例: /blog/1
@@ -242,7 +248,8 @@ atIndex: true/false， 展示到首页/从首页异常, 可选
     }
 }
 ```
-```DELETE /blog/:blogId
+```
+DELETE /blog/:blogId
 功能: 删除博客 id 为:blogId 的博客
 
 提交参数：无
