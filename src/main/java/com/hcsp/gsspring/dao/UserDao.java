@@ -24,6 +24,4 @@ public class UserDao {
         return userMapper.findUserByUsername(username);
     }
 
-
-
 }

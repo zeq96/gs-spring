@@ -1,40 +1,23 @@
 package com.hcsp.gsspring.entity;
 
-public class AuthResponse {
+public class AuthResponse extends Response<User> {
 
-    String status;
-    String msg;
-    boolean isLogin;
-    Object data;
+    private boolean isLogin;
 
-    private AuthResponse(String status, String msg, boolean isLogin, Object data) {
-        this.status = status;
-        this.msg = msg;
+    private AuthResponse(ResponseStatus status, String msg, User user, boolean isLogin) {
+        super(status, msg, user);
         this.isLogin = isLogin;
-        this.data = data;
     }
 
     public static AuthResponse failure(String msg) {
-        return new AuthResponse("fail", msg, false, null);
+        return new AuthResponse(ResponseStatus.FAIL, msg, null, false);
     }
 
-    public static AuthResponse success(String msg, Object obj) {
-        return new AuthResponse("ok", msg, true, obj);
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getMsg() {
-        return msg;
+    public static AuthResponse success(String msg, User user) {
+        return new AuthResponse(ResponseStatus.OK, msg, user, true);
     }
 
     public boolean isLogin() {
         return isLogin;
-    }
-
-    public Object getData() {
-        return data;
     }
 }

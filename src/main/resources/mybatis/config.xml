@@ -6,7 +6,12 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    <typeAliases>
+        <typeAlias alias="Blog" type="com.hcsp.gsspring.entity.Blog"/>
+        <typeAlias alias="User" type="com.hcsp.gsspring.entity.User"/>
+    </typeAliases>
     <mappers>
-       <mapper class="com.hcsp.gsspring.mapper.UserMapper" />
+        <mapper class="com.hcsp.gsspring.mapper.UserMapper"/>
+        <mapper resource="mybatis/mapper/BlogMapper.xml"/>
     </mappers>
 </configuration>

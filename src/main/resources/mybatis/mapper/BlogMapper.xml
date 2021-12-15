@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BlogMapper">
+
+    <select id="selectBlogCount" resultType="int">
+        SELECT COUNT(id) FROM blog
+        <if test="userId != null">
+            WHERE user_id = #{userId}
+        </if>
+    </select>
+
+    <select id="selectBlogByPage" parameterType="hashmap" resultMap="blog">
+        SELECT title,
+            description,
+            user_id,
+            blog.id AS blog_id,
+            username,
+            avatar,
+            blog.created_at,
+            blog.updated_at
+        FROM blog
+            JOIN user ON blog.user_id = user.id
+        <if test="userId != null">
+            WHERE user_id = #{userId}
+        </if>
+        LIMIT #{offset}, #{limit};
+    </select>
+    
+    <resultMap id="blog" type="Blog">
+        <id property="id" column="blog_id"/>
+        <result property="title" column="title" />
+        <result property="description" column="description" />
+        <result property="created_at" column="createdAt" />
+        <result property="updated_at" column="updatedAt" />
+        <association property="user" javaType="User">
+            <id property="id" column="user_id"/>
+            <result property="username" column="username"/>
+            <result property="avatar" column="avatar"/>
+        </association>
+    </resultMap>
+
+</mapper>
