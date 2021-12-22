@@ -1,6 +1,7 @@
 package com.hcsp.gsspring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hcsp.gsspring.service.AuthService;
 import com.hcsp.gsspring.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,11 +37,13 @@ class AuthControllerTest {
     private UserService mockService;
     @Mock
     private AuthenticationManager mockManager;
+
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new AuthController(mockService, mockManager))
+        AuthService authService = new AuthService(mockService);
+        mockMvc = MockMvcBuilders.standaloneSetup(new AuthController(mockService, mockManager, authService))
                 .defaultResponseCharacterEncoding(StandardCharsets.UTF_8)
                 .build();
     }

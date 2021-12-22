@@ -2,12 +2,12 @@ package com.hcsp.gsspring.controller;
 
 import com.hcsp.gsspring.entity.AuthResponse;
 import com.hcsp.gsspring.entity.User;
+import com.hcsp.gsspring.service.AuthService;
 import com.hcsp.gsspring.service.UserService;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,11 +21,13 @@ public class AuthController {
 
     private UserService userService;
     private AuthenticationManager authenticationManager;
+    private AuthService authService;
 
     @Inject
-    public AuthController(UserService userService, AuthenticationManager authenticationManager) {
+    public AuthController(UserService userService, AuthenticationManager authenticationManager, AuthService authService) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
+        this.authService = authService;
     }
 
     @PostMapping("/auth/register")
@@ -42,11 +44,11 @@ public class AuthController {
         }
         try {
             userService.registerUser(username, password);
-            return AuthResponse.success("注册成功", null);
         } catch (DuplicateKeyException e) {
             return AuthResponse.failure("用户名已存在");
         }
-
+        login(unameAndPassword);
+        return AuthResponse.success("注册成功", userService.getUserByName(username));
     }
 
     @PostMapping("/auth/login")
@@ -76,12 +78,9 @@ public class AuthController {
     @GetMapping("/auth")
     @ResponseBody
     public AuthResponse isLogin() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = userService.getUserByName(authentication == null ? null : authentication.getName());
-        if (currentUser == null) {
-            return AuthResponse.failure("用户没有登录");
-        }
-        return AuthResponse.success("用户登录成功", currentUser);
+        return authService.getCurrentUser()
+                .map(user -> AuthResponse.success("用户登录成功", user))
+                .orElse(AuthResponse.failure("用户没有登录"));
     }
 
     @GetMapping("/auth/logout")

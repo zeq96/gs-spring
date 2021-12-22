@@ -12,15 +12,15 @@
         </if>
     </select>
 
-    <select id="selectBlogByPage" parameterType="hashmap" resultMap="blog">
+    <select id="selectBlogByPage" resultMap="blog">
         SELECT title,
             description,
             user_id,
             blog.id AS blog_id,
             username,
             avatar,
-            blog.created_at,
-            blog.updated_at
+        blog.created_at,
+        blog.updated_at
         FROM blog
             JOIN user ON blog.user_id = user.id
         <if test="userId != null">
@@ -28,13 +28,46 @@
         </if>
         LIMIT #{offset}, #{limit};
     </select>
-    
+
+    <select id="selectBlogById" resultType="Blog">
+        SELECT title,
+            description,
+            content,
+            user_id,
+            id,
+            username,
+            encryptedPassword,
+            avatar,
+            created_at,
+            updated_at
+        FROM blog
+        WHERE id = #{blogId};
+    </select>
+
+    <insert id="createBlog" parameterType="Blog">
+        INSERT INTO blog (title, description, content, user_id, created_at, updated_at)
+        VALUES (#{title}, #{description}, #{content}, #{userId}, now(), now())
+    </insert>
+
+    <update id="updateBlog" parameterType="Blog">
+        UPDATE blog
+        set title       = #{title},
+            content     = #{content},
+            description = #{description},
+            updated_at  = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBlogById">
+        DELETE FROM blog WHERE id = #{id}
+    </delete>
+
     <resultMap id="blog" type="Blog">
         <id property="id" column="blog_id"/>
         <result property="title" column="title" />
         <result property="description" column="description" />
-        <result property="created_at" column="createdAt" />
-        <result property="updated_at" column="updatedAt" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
         <association property="user" javaType="User">
             <id property="id" column="user_id"/>
             <result property="username" column="username"/>

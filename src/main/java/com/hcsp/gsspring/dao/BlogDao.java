@@ -28,8 +28,25 @@ public class BlogDao {
     }
 
     public Integer selectBlogCount(Integer userId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("userId", userId);
         return sqlSession.selectOne("BlogMapper.selectBlogCount", userId);
     }
+
+    public Blog selectBlogById(Integer blogId) {
+        return sqlSession.selectOne("BlogMapper.selectBlogById");
+    }
+
+    public Blog createBlog(Blog blog) {
+        sqlSession.insert("BlogMapper.createBlog", blog);
+        return selectBlogById(blog.getId());
+    }
+
+    public Blog updateBlog(Blog blog) {
+        sqlSession.update("BlogMapper.updateBlog");
+        return selectBlogById(blog.getId());
+    }
+
+    public void deleteBlogById(Integer blogId) {
+        sqlSession.delete("BlogMapper.deleteBlogById", blogId);
+    }
+
 }

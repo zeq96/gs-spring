@@ -6,9 +6,9 @@ package com.hcsp.gsspring.entity;
  */
 public abstract class Response<T> {
 
-    private ResponseStatus status;
-    private String msg;
-    private T data;
+    protected ResponseStatus status;
+    protected String msg;
+    protected T data;
 
     protected Response(ResponseStatus status, String msg, T data) {
         this.status = status;
