@@ -1,4 +1,13 @@
 # gs-spring
+在线博客平台
+
+## 项目运行前置条件
+您可以使用Flyway进行数据库初始化  
+`$ mvn flyway:migrate`   
+**请注意:**  
+需要保证项目中数据库配置与您的数据库一致
+1. pom文件中Flyway plugin    
+2. 2.application.properties  
 
 ## 后端接口规范
 
