@@ -39,6 +39,7 @@ public class BlogService {
             Blog blog = blogDao.selectBlogById(id);
             return BlogResponse.success("获取成功", blog);
         } catch (Exception e) {
+            e.printStackTrace();
             return BlogResponse.failure("系统异常");
         }
     }

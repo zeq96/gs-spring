@@ -66,4 +66,8 @@ public class Blog {
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public Integer getUserId() {
+        return user == null ? null : user.getId();
+    }
 }

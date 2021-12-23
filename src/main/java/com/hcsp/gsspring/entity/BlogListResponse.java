@@ -23,4 +23,16 @@ public class BlogListResponse extends Response<List<Blog>> {
     public static BlogListResponse failure(String message) {
         return new BlogListResponse(ResponseStatus.FAIL, message, null, 0, 0, 0);
     }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public Integer getTotalPage() {
+        return totalPage;
+    }
 }

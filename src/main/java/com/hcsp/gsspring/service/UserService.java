@@ -13,8 +13,8 @@ import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
-    private UserDao userDao;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserDao userDao;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Inject
     public UserService(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder) {

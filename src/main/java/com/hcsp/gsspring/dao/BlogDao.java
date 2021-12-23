@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Repository
 public class BlogDao {
-    private SqlSession sqlSession;
+    private final SqlSession sqlSession;
 
     @Inject
     public BlogDao(SqlSession sqlSession) {
@@ -32,7 +32,7 @@ public class BlogDao {
     }
 
     public Blog selectBlogById(Integer blogId) {
-        return sqlSession.selectOne("BlogMapper.selectBlogById");
+        return sqlSession.selectOne("BlogMapper.selectBlogById", blogId);
     }
 
     public Blog createBlog(Blog blog) {
@@ -41,7 +41,7 @@ public class BlogDao {
     }
 
     public Blog updateBlog(Blog blog) {
-        sqlSession.update("BlogMapper.updateBlog");
+        sqlSession.update("BlogMapper.updateBlog", blog);
         return selectBlogById(blog.getId());
     }
 

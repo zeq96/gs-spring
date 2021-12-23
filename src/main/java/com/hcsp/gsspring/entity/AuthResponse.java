@@ -1,5 +1,7 @@
 package com.hcsp.gsspring.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AuthResponse extends Response<User> {
 
     private boolean isLogin;
@@ -17,6 +19,7 @@ public class AuthResponse extends Response<User> {
         return new AuthResponse(ResponseStatus.OK, msg, user, true);
     }
 
+    @JsonProperty("isLogin")
     public boolean isLogin() {
         return isLogin;
     }

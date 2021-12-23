@@ -14,6 +14,7 @@
 
     <select id="selectBlogByPage" resultMap="blog">
         SELECT title,
+            content,
             description,
             user_id,
             blog.id AS blog_id,
@@ -26,25 +27,25 @@
         <if test="userId != null">
             WHERE user_id = #{userId}
         </if>
-        LIMIT #{offset}, #{limit};
+        LIMIT #{offset}, #{limit}
     </select>
 
-    <select id="selectBlogById" resultType="Blog">
+    <select id="selectBlogById" resultMap="blog">
         SELECT title,
-            description,
-            content,
-            user_id,
-            id,
-            username,
-            encryptedPassword,
-            avatar,
-            created_at,
-            updated_at
+        content,
+        description,
+        user_id,
+        blog.id AS blog_id,
+        username,
+        avatar,
+        blog.created_at,
+        blog.updated_at
         FROM blog
-        WHERE id = #{blogId};
+        JOIN user ON blog.user_id = user.id
+        WHERE blog.id = #{blogId}
     </select>
 
-    <insert id="createBlog" parameterType="Blog">
+    <insert id="createBlog" parameterType="com.hcsp.gsspring.entity.Blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO blog (title, description, content, user_id, created_at, updated_at)
         VALUES (#{title}, #{description}, #{content}, #{userId}, now(), now())
     </insert>
@@ -66,6 +67,7 @@
         <id property="id" column="blog_id"/>
         <result property="title" column="title" />
         <result property="description" column="description" />
+        <result property="content" column="content"/>
         <result property="createdAt" column="created_at" />
         <result property="updatedAt" column="updated_at" />
         <association property="user" javaType="User">

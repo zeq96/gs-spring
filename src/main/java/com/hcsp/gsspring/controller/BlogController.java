@@ -15,8 +15,8 @@ import java.util.Map;
 
 @Controller
 public class BlogController {
-    private BlogService blogService;
-    private AuthService authService;
+    private final BlogService blogService;
+    private final AuthService authService;
 
     @Inject
     public BlogController(BlogService blogService, AuthService authService) {
@@ -26,7 +26,8 @@ public class BlogController {
 
     @GetMapping("/blog")
     @ResponseBody
-    public BlogListResponse getBlogs(@RequestParam("page") Integer page, @RequestParam(required = false, value = "userId") Integer userId) {
+    public BlogListResponse getBlogs(@RequestParam(required = false, value = "page") Integer page,
+                                     @RequestParam(required = false, value = "userId") Integer userId) {
         if (page == null || page <= 0) {
             page = 1;
         }
@@ -93,7 +94,7 @@ public class BlogController {
         }
 
         if (StringUtils.isBlank(description)) {
-            description = content.substring(0, Math.max(content.length(), 10)) + "....";
+            description = content.substring(0, Math.min(content.length(), 10)) + "....";
         }
 
         blog.setTitle(title);

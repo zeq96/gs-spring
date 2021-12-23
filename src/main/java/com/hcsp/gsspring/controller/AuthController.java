@@ -1,7 +1,6 @@
 package com.hcsp.gsspring.controller;
 
 import com.hcsp.gsspring.entity.AuthResponse;
-import com.hcsp.gsspring.entity.User;
 import com.hcsp.gsspring.service.AuthService;
 import com.hcsp.gsspring.service.UserService;
 import org.springframework.dao.DuplicateKeyException;
@@ -19,9 +18,9 @@ import java.util.Map;
 @RestController
 public class AuthController {
 
-    private UserService userService;
-    private AuthenticationManager authenticationManager;
-    private AuthService authService;
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final AuthService authService;
 
     @Inject
     public AuthController(UserService userService, AuthenticationManager authenticationManager, AuthService authService) {
@@ -85,14 +84,12 @@ public class AuthController {
 
     @GetMapping("/auth/logout")
     @ResponseBody
-    public AuthResponse logOut() {
-        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        User currentUser = userService.getUserByName(currentUsername);
-        if (currentUser == null) {
-            return AuthResponse.failure("用户尚未登录");
-        }
+    public AuthResponse logout() {
+        AuthResponse response = authService.getCurrentUser()
+                .map(user -> AuthResponse.success("注销成功", user))
+                .orElse(AuthResponse.failure("用户尚未登录"));
         SecurityContextHolder.clearContext();
-        return AuthResponse.success("用户注销成功", null);
+        return response;
     }
 
 }

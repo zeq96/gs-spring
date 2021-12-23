@@ -16,8 +16,8 @@ public abstract class Response<T> {
         this.data = data;
     }
 
-    public ResponseStatus getStatus() {
-        return status;
+    public String getStatus() {
+        return status.getStatus();
     }
 
     public String getMsg() {
@@ -36,6 +36,10 @@ public abstract class Response<T> {
 
         ResponseStatus(String status) {
             this.status = status;
+        }
+
+        public String getStatus() {
+            return status;
         }
     }
 }
