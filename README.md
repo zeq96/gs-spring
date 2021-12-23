@@ -7,7 +7,7 @@
 **请注意:**  
 需要保证项目中数据库配置与您的数据库一致
 1. pom文件中Flyway plugin    
-2. 2.application.properties  
+2. application.properties  
 
 ## 后端接口规范
 
